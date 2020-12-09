@@ -1,25 +1,48 @@
-import logo from './logo.svg';
+import { useSelector, useDispatch } from 'react-redux';
+import { agregarTarea, borrar } from './actions/todo';
 import './App.css';
 
-function App() {
+const App = () => {
+  const tareas = useSelector((state) => state.todo);
+  const dispatch = useDispatch();
+
+  const guardar = (ev) => {
+    ev.preventDefault();
+    console.log(ev.target.tarea.value);
+    dispatch(agregarTarea(ev.target.tarea.value));
+  };
+
+  const remove = (id) => {
+    dispatch(borrar(id));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className='App'>
+      <header className='App-header'>
+        <form
+          action=''
+          onSubmit={(ev) => {
+            guardar(ev);
+          }}
         >
-          Learn React
-        </a>
+          <input type='text' name='tarea' />
+          <button>Guardar</button>
+        </form>
+        <div>
+          <ul>
+            {tareas.map((item) => {
+              return (
+                <li key={item.id}>
+                  {item.valor}{' '}
+                  <button onClick={() => remove(item.id)}>borrar</button>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </header>
     </div>
   );
-}
+};
 
 export default App;
