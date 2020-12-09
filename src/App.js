@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { agregarTarea, borrar } from './actions/todo';
+import logo from './logo.svg';
 import './App.css';
 
 const App = () => {
@@ -19,6 +20,8 @@ const App = () => {
   return (
     <div className='App'>
       <header className='App-header'>
+        <img src={logo} className='App-logo' alt='logo' />
+
         <form
           action=''
           onSubmit={(ev) => {
